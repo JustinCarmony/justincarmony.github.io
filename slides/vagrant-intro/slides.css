@@ -1,0 +1,56 @@
+/** Across The Whole Presentation **/
+
+/* FontAwesome */
+
+#omni .font-awesome {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    line-height: normal;
+}
+
+#omni .font-huge {
+    margin:30px;
+    font-size:92px;
+    display: block;
+}
+
+/* Story Slides */
+
+.story-2 .reveal .state-background {
+    /* background: green; */
+}
+
+#salt-clients span {
+    display: inline-block;
+    width:200px; height:200px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+
+
+}
+
+#salt-clients span img {
+    display: inline;
+    border:none;
+    background: transparent;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+
+
+}
+
+.bob
+{
+    color:#61fe4c;
+}
+
+#omni .floated-list-item
+{
+    float:left; padding-right:50px;
+}

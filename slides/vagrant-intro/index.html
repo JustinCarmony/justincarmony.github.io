@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Automating Your Local Environment with Vagrant & Friends</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+        <link rel="stylesheet" href="slides.css">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- for font icons -->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div id="omni" class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+            <section>
+                <h1 style="font-size:3.0em">Vagrant & Friends</h1>
+                <h3>Automating Your Local Environment</h3>
+                <p>
+                    <small>Presented by <a href="http://www.justincarmony.com/">Justin Carmony</a> / <a href="http://twitter.com/justincarmony">@JustinCarmony</a></small>
+                </p>
+            </section>
+            <section>
+                <section>
+                    <p>Slides split up into multiple sections.</p>
+                    <p>Slides both vertical and horizontal.</p>
+                    <div style="vertical-align: middle;">
+                        <i class="font-awesome font-huge icon-arrow-left" style="display:inline-block;vertical-align: top;"></i>
+                        <i class="font-awesome font-huge icon-arrow-down" style="display:inline-block; padding-top:80px;"></i>
+                        <i class="font-awesome font-huge icon-arrow-right" style="display:inline-block;vertical-align: top;"></i>
+                    </div>
+                </section>
+                <section>
+                    Test Vertical Slide
+                </section>
+            </section>
+                <!-- Introduction -->
+                <section>
+                    <section>
+                        <h2>About Presenter</h2>
+                        <ul>
+                            <li>Director of Development <br />@ Deseret Digital Media</li>
+                            <li>President of Utah PHP Usergroup</li>
+                            <li>8+ years of professional web development</li>
+                            <li>Goofy dad</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <img src="img/marshall_hat.jpg"/>
+                    </section>
+                    <section>
+                        <h2>About This Presentation</h2>
+                        <ul>
+                            <li>Slides & code examples will be posted online</li>
+                            <li>If something isn't clear, ask in chat and Eli will let me know</li>
+                            <li>We'll have time for questions at the end</li>
+                            <li>Feel free to contact me<br/> afterward the presentation</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Our Goal</h2>
+                        <ul>
+                            <li>Introduction to Vagrant</li>
+                            <li>When To Use It</li>
+                            <li>Live Demo On How to Use Vagrant</li>
+                            <li>Get you excited to try it on your own!</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!-- The Story -->
+                <section>
+                    <section>
+                        <h1>Lets Start</h1><h2>With a Story</h2>
+                        <div><i class="font-awesome font-huge icon-arrow-down"></i></div>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 20px 0;"><img src="gifs/happy-dev.gif"/></div>
+                        <h3>You're a Happy Developer</h3>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 20px 0;"><img src="gifs/team.gif"/></div>
+                        <h3>You're Part of a <br/>Small Team of Devs</h3>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 20px 0;"><img style="min-width: 500px;" src="gifs/business-cat.gif"/></div>
+                        <h3>You find an impressive new hire</h3>
+                        <h3>Lets call him <span class="bob">Bob</span></h3>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 20px 0;"><img style="min-width: 500px;" src="gifs/explore.gif"/></div>
+                        <h3><span class="bob">Bob</span> show ups on his first day</h3>
+                        <h3>Ready to do amazing stuff!</h3>
+                    </section>
+                    <section>
+                        <h1>HOLD ON!</h1>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 20px 0;"><img style="min-width: 400px;" src="gifs/slow-typing.gif"/></div>
+                        <h3><span class="bob">Bob</span> needs to get his</h3>
+                        <h3>Dev Environment Setup</h3>
+                    </section>
+                    <section>
+                        <h2><span class="bob">Bob</span> will take <em>days</em> to get setup</h2>
+                    </section>
+                    <section>
+                        <h2>Example</h2>
+                        <div style="background: white;">
+                        <iframe width="1000" height="600" src="http://www.robbyonrails.com/articles/2010/02/08/installing-ruby-on-rails-passenger-postgresql-mysql-oh-my-zsh-on-snow-leopard-fourth-edition"></iframe>
+                        </div>
+                    </section>
+                    <!-- <section>
+                        <div style="padding:0 0 20px 0;"><img style="min-width: 500px;" src="gifs/senior-dev.gif"/></div>
+                        <h3><span class="bob">Bob</span> asks the </h3><h3>senior developer for help</h3>
+                    </section> -->
+                </section>
+
+                <section data-state="">
+                    <section>
+                        <h1>Problem #1:</h1>
+                        <h2>Manual Development Environments</h2>
+                    </section>
+                    <section>
+                        <h2>Typical New Hire Scenario:</h2>
+                        <h3>First Week</h3>
+                        <ul>
+                            <li class="fragment">Gets work laptop</li>
+                            <li class="fragment">Clones / Checkouts code repos</li>
+                            <li class="fragment">Installs PHP, Apache, etc</li>
+                            <li class="fragment">Configures Apache to point to source directory</li>
+                            <li class="fragment">Mashes buttons until it hello worlds</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Typical New Hire Scenario:</h2>
+                        <h3>First Month</h3>
+                        <ul>
+                            <li class="fragment">Discovers things that won't work on his machine</li>
+                            <li class="fragment">Hacks & Mashes until he fixes it hopefully</li>
+                            <li class="fragment">Discovers things don't work in production</li>
+                            <li class="fragment">Tears hair out while combing through logs<br/>trying to see why it doesn't work in production</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 20px 0;"><img style="width: 500px;" src="img/agony.jpg"/></div>
+                        <h2><span class="bob">Bob</span>'s Has An HDD Failure</h2>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 20px 0;"><img style="min-width: 400px;" src="gifs/slow-typing.gif"/></div>
+                        <h3><span class="bob">Bob</span> starts to re-setup his</h3>
+                        <h3>Dev Environment Setup... Again</h3>
+                    </section>
+                    <section>
+                        <h1>Problem #2:</h1>
+                        <h2>Increasingly Complex Environments</h2>
+                    </section>
+                    <section>
+                        <h2>Web Dev isn't</h2><h2>simple LAMP anymore</h2>
+                        <h3>One of my Current Projects:</h3>
+                        <p style="text-align: center;">Nginx - Apache - PHP-FPM - PHP 5.4 (new sites)</p>
+                        <p style="text-align: center;">PHP 5.3 (legacy tools) - MySQL - MongoDB - Redis</p>
+                        <p style="text-align: center;">Beanstalkd - Memcached</p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>We Need a Better Solution</h1>
+                    </section>
+                    <section>
+                        <h2>Goals For Our Solution</h2>
+                        <ul>
+                            <li class="fragment">Automated As Much As Possible</li>
+                            <li class="fragment">Quickly On-Board New Team Members</li>
+                            <li class="fragment">Reasonably Simulate Production</li>
+                            <li class="fragment">Share Across Your Team</li>
+                            <li class="fragment">Share Env Updates with Team</li>
+                            <li class="fragment">Use Source Control to Track Changes</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Introducing:</h2>
+                        <p><img src="img/vagrant-logo.png" style="border:none; background: none;" /> </p>
+                    </section>
+                    <section>
+                        <h2>What is Vagrant?</h2>
+                        <h3>A CLI tool to create &amp; configure</h3><h3> lightweight, reproducible, and portable</h3><h3> development environments</h3>
+                    </section>
+                    <section>
+                        <h2>How it Works</h2>
+                        <ul>
+                            <li>Vagrant with spin up a local virtual machine using something like VirtualBox</li>
+                            <li>It will mount shared folders automatically</li>
+                            <li>Vagrant will then use a provisioner (i.e. pupptet) to configure the machine as needed</li>
+                        </ul><p>&nbsp;</p>
+                        <h2>All 100% Automated</h2>
+                    </section>
+                    <section>
+                        <h2>Personal Success Story with Vagrant</h2>
+                        <ul>
+                            <li>Local Team in Utah all on 64 bit Macs or Linux Machines</li>
+                            <li>New Remote team in the Ukraine all on 32-bit Windows machines</li>
+                            <li>Only have 1 overlapping hour in our work days.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>Using Vagrant, they were able to setup our complex environment on their own in an hour while the other half of our team were sleeping on the other side of the world.</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Install Vagrant</h1>
+                    </section>
+                    <section>
+                        <h2>Prerequisites</h2>
+                        <ul>
+                            <li>VirtualBox (or another provider)</li>
+                            <li>SSH client (i.e. Putty for windows)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Install VirtualBox</h2>
+                        <ul>
+                            <li><a href="https://www.virtualbox.org/wiki/Downloads">Download VirtualBox</a> for your given environment</li>
+                            <li>Run the VirtualBox Installer &amp; Follow Instructions</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Install Vagrant</h2>
+                        <ul>
+                            <li><a href="http://downloads.vagrantup.com/">Download</a> the Vagrant Installer for your platform.</li>
+                            <li>Run the Vagrant Installer &amp; Follow Instructions</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>"Hello World" of Vagrant</h2>
+                        <p>Open up your terminal and run the following:</p>
+                        <pre><code data-trim class="bash">
+$ mkdir vagrant_test
+$ cd vagrant_test
+$ vagrant init precise32 http://files.vagrantup.com/precise32.box
+$ vagrant up
+                        </code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Vagrant Overview</h1>
+                        <p>What happens when you type: <code>vagrant up</code></p>
+                    </section>
+                    <section>
+                        <h3>Step #1:</h3>
+                        <h2>Vagrant locates &amp; reads <code>Vagrantfile</code></h2>
+                        <p>The Vagrantfile contains configurations in ruby for:</p>
+                        <ul>
+                            <li>Which BaseBox to use for VM(s)</li>
+                            <li>Network Configuration for VMs</li>
+                            <li>Which "provisioner" (i.e. puppet, chef) to use</li>
+                            <li>Shared / Synced Folders</li>
+                            <li>Port Forwarding</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Step #2:</h3>
+                        <h2>Vagrant instructs provider (i.e. VirtualBox) to create & setup VM(s)</h2>
+                        <p>The Provider will:</p>
+                        <ul>
+                            <li>Import Base Box</li>
+                            <li>Set VM Networking Config (per Vangrantfile)</li>
+                            <li>Setup Shared / Synced Folders</li>
+                            <li>Setup Port Forwarding</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Step #3:</h3>
+                        <h2>Vagrant runs the Provisioner</h2>
+                        <p>The Provisioner (i.e. Puppet, Chef, Salt, Ansible, etc) will:</p>
+                        <ul>
+                            <li>Read Provisioner Config Files to Determine Desired State</li>
+                            <li>Determine Current State of VM</li>
+                            <li>Apply changes to VM (i.e. installing packages, starting services,<br /> updating files) to match the desired state</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Live Demo Time</h1>
+                        <p>In our Demo we'll use:</p>
+                        <ul>
+                            <li>Vagrant 1.2.2</li>
+                            <li>Provider: VirtualBox 4.2</li>
+                            <li>Provisioner: Puppet</li>
+                            <li>Base Box: Precise64 (Ubuntu 12.04 LTS 64-Bit)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h1>Demo</h1>
+                    </section>
+                </section>
+                <!-- About -->
+                <section>
+                    <section>
+                        <h1>Getting The Most Out of Vagrant</h1>
+                    </section>
+                    <section>
+                        <h2>Which Provisioner Should You Use?</h2>
+                        <p>Available Provisioners: Puppet, Chef, Salt, Ansible, Shell</p>
+                        <ul>
+                            <li>Using one already in production? Use that one!</li>
+                            <li>Have a preference for one? Use that one!</li>
+                            <li>Personally, I think Puppet is the easiest to pick up.</li>
+                            <li>Stand-Alone versions are easier than a server based one.</li>
+                            <li>Try to avoid using the Bash Provider</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Put Heavy Lifting into your Provisioner</h2>
+                        <ul>
+                            <li>You want the only set to setup your<br/>Environment to be to execute a "vagrant up"</li>
+                            <li>Rolling your own pre-configured Base Box<br />can be complex, difficult to update</li>
+                            <li>Great way to test: "vagrant destroy && vagrant up"</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>User Configuration</h2>
+                        <p>Sometimes you want to allow your team to configure parts of your vagrant project.</p>
+                        <p>Things to configure:</p>
+                        <ul>
+                            <li>User Credentials for Services</li>
+                            <li>Paths for Files</li>
+                            <li>Domain Names to Use</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Configuration Example</h2>
+                        <p><code>config/prefs.rb</code></p>
+                        <pre><code class="ruby">
+#!/usr/bin/env ruby
+$config_source_dir = "/Users/jcarmony/git/demo"
+$config_base_box = "precise64"
+                        </code></pre>
+                        <p><code>Vagrantfile</code></p>
+                        <pre><code class="ruby">
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+load "config/prefs.rb"
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Useful Vagrant Plugins</h2>
+                        <ul>
+                            <li><strong>vagrant-vbguest</strong> - will auto-update base box guest additions if out-of-date</li>
+                            <li><strong>vagrant-aws</strong> - provider for AWS</li>
+                            <li><strong>vagrant-rackspace</strong> - provider for rackspace cloud</li>
+                            <li><strong>vagrant-salt</strong> - SaltStack provisioner</li>
+                            <li><a href="https://github.com/mitchellh/vagrant/wiki/Available-Vagrant-Plugins">Many, many, many other plugins</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Base Boxes</h2>
+                        <p>Vagrant has the website <a href="http://www.vagrantbox.es/">http://www.vagrantbox.es/</a></p>
+                        <ul>
+                            <li>Try to find the closes distro to your production environment</li>
+                            <li>Boxes are provider specific, so if you want the option to use either VirtualBox or VMWare, you'll want a generic distro and use a provisioner to customize</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Source Control</h2>
+                        <p>A couple of things to keep in mind:</p>
+                        <ul>
+                            <li>Ignore the .vagrant directory</li>
+                            <li>You can include the Vagrant project in the same repo</li>
+                            <li>Or you can split it out into it's own repository (My preference)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Port Forwarding vs Accessing Via IP</h2>
+                        <ul>
+                            <li>I almost always prefer to access via the VM's IP.</li>
+                            <li>When running multiple vagrants, I commonly get port forwarding conflicts</li>
+                            <li>Can edit your local hosts file to use a domain (i.e. dev.example.com) to access vagrant machine</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Multiple VMs</h2>
+                        <ul>
+                            <li>Multiple VMs are totally possible, but they do take up more resources</li>
+                            <li>It's a judgment call on replicating production env vs resources.</li>
+                            <li>Personally I keep functionally on same machine <strong>unless</strong> there is a commonly broken technology issue.</li>
+                            <li>Example: Running php 5.4 and php 5.3 on different servers.</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Okay, so...</h1>
+                        <h1>Now What?</h1>
+                    </section>
+                    <section>
+                        <h1>Pick a Project,</h1>
+                        <h1>Make a Vagrant Project For It</h1>
+                    </section>
+                    <section>
+                        <h2>Basic Steps</h2>
+                        <ul>
+                            <li>Decide which distro & basebox</li>
+                            <li>Configure which local directories to sync</li>
+                            <li>Decide on which provisioner to use (when in doubt, puppet)</li>
+                            <li>Get very familiar with that provisioner, since most of the work will be in your manifest files.</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+
+                        <h1>Troubleshooting</h1>
+                        <ul>
+                            <li>SSH to vagrant machine with <code>vagrant ssh</code> command.</li>
+                            <li>If having networking issues, reboot your host machine.</li>
+                            <li>If you make changes to your Vagrantfile, <code>vagrant reload</code></li>
+                            <li>If you make changes to manifests, <code>vagrant provision</code></li>
+                            <li>If it is totally messed up, try <code>vagrant destory</code> and then <code>vagrant up</code></li>
+                        </ul>
+                    </section>
+            <section>
+                <section>
+                    <h1>Questions?</h1>
+                </section>
+                <section>
+                    <p style="text-align: left; padding-left:100px;"><strong>&lt;shameless_plug&gt;</strong></p>
+                    <p style=""><strong><em>BTW, We're Hiring a DevOps position at <br/>Deseret Digital Media, so email me if interested.</em></strong></p>
+                    <p style="text-align: right; padding-right:100px;"><strong>&lt;/shameless_plug&gt;</strong></p>
+                </section>
+                <section>
+                    <h1>Thank You</h1>
+                    <ul>
+                        <li>Slides: <a href="http://www.justincarmony.com/slides/vagrant-intro/">http://www.justincarmony.com/slides/vagrant-intro/</a></li>
+                        <li>Example Code: <a href="https://github.com/JustinCarmony/vagrant-lamp-demo">https://github.com/JustinCarmony/vagrant-lamp-demo</a></li>
+                        <li>Email: justin [AT] justincarmony [DOT] com</li>
+                        <li>Twitter: <a href="https://twitter.com/JustinCarmony">@JustinCarmony</a></li>
+                        <li>IRC: irc.freenode.net #uphpu</li>
+                    </ul>
+                </section>
+            </section>
+			</div>
+
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: 'default', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

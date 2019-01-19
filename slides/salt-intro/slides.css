@@ -1,0 +1,60 @@
+/** Across The Whole Presentation **/
+
+/* FontAwesome */
+
+#omni .font-awesome {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    line-height: normal;
+}
+
+#omni .font-huge {
+    margin:30px;
+    font-size:92px;
+    display: block;
+}
+
+/* Story Slides */
+
+.story-2 .reveal .state-background {
+    /* background: green; */
+}
+
+.iceberg .reveal .state-background {
+    background-image: url('img/iceberg.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: color 0 ease-in;
+    transition: none;
+}
+
+
+#salt-clients span {
+    display: inline-block;
+    width:200px; height:200px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+
+
+}
+
+#salt-clients span img {
+    display: inline;
+    border:none;
+    background: transparent;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+
+
+}

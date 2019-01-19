@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Intro to Salt - The New Configuration Management System</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+        <link rel="stylesheet" href="slides.css">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- for font icons -->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div id="omni" class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+            <section>
+                <h1>Intro to SaltStack</h1>
+                <h3>The New Configuration Management System</h3>
+                <p>
+                    <small>Presented by <a href="http://www.justincarmony.com/">Justin Carmony</a> / <a href="http://twitter.com/justincarmony">@JustinCarmony</a></small>
+                </p>
+            </section>
+            <section>
+                <section>
+                    <p>Slides split up into multiple sections.</p>
+                    <p>Slides both vertical and horizontal.</p>
+                    <div style="vertical-align: middle;">
+                        <i class="font-awesome font-huge icon-arrow-left" style="display:inline-block;vertical-align: top;"></i>
+                        <i class="font-awesome font-huge icon-arrow-down" style="display:inline-block; padding-top:80px;"></i>
+                        <i class="font-awesome font-huge icon-arrow-right" style="display:inline-block;vertical-align: top;"></i>
+                    </div>
+                </section>
+                <section>
+                    Test Vertical Slide
+                </section>
+            </section>
+                <!-- Introduction -->
+                <section>
+                    <section>
+                        <h2>About Presenter</h2>
+                        <ul>
+                            <li>Director of Development <br />@ Deseret Digital Media</li>
+                            <li>President of Utah PHP Usergroup</li>
+                            <li>8+ years of professional web development</li>
+                            <li>Goofy dad</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <img src="img/marshall_hat.jpg"/>
+                    </section>
+                    <section>
+                        <h2>About This Presentation</h2>
+                        <ul>
+                            <li>Slides & code examples will be posted online</li>
+                            <li>Feel free to ask on-topic questions</li>
+                            <li>We'll have time for questions at the end</li>
+                            <li>Feel free to talk and/or contact me<br/> afterward the presentation</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Our Goal</h2>
+                        <ul>
+                            <li>Understand Some Server Challenges Facing Teams</li>
+                            <li>Basic introduction to Salt about what it does</li>
+                            <li>Live demo on how it can help solve common problems</li>
+                            <li>Get you excited to go try out & learn more about salt</li>
+                        </ul>
+                    </section>
+
+                </section>
+
+                <!-- The Story -->
+                <section>
+                    <section class="story-1">
+                        <h1>Lets Start</h1><h2>With a Story</h2>
+                        <div><i class="font-awesome font-huge icon-arrow-down"></i></div>
+                    </section>
+                    <section class="story-2" data-state="story-2">
+                        <div style="padding:0 0 50px 0;"><img src="gifs/happy-dev.gif"/></div>
+                        <h3>You're a Happy Developer</h3>
+                    </section>
+                    <section class="story-2" data-state="story-3">
+                        <div style="padding:0 0 50px 0;"><img src="gifs/team.gif"/></div>
+                        <h3>You're Part of a <br/>Small Team of Devs</h3>
+                    </section>
+                    <section class="story-2" data-state="story-4">
+                        <div style="padding:0 0 50px 0;"><img src="gifs/new-website.gif"/></div>
+                        <h3>You Have a New Website</h3>
+                    </section>
+                    <section class="story-2" data-state="story-5">
+                        <div style="padding:0 0 50px 0; font-size: 80px;">
+                            <div><i class="font-awesome icon-cloud" style="font-size:50px;"></i></div>
+                        </div>
+                        <h3>On a small cloud server</h3>
+                    </section>
+                    <section class="story-2" data-state="story-6">
+                        <div style="padding:0 0 50px 0;"><img src="gifs/traffic.gif"/></div>
+                        <h3>You Start Getting Lots of Users ...</h3>
+                    </section>
+                    <section class="story-2" data-state="story-6">
+                        <div style="padding:0 0 50px 0;"><img src="gifs/fire.gif" style="width:490px; height:366px;"/></div>
+                        <h3>... and you need to quickly scale.</h3>
+                    </section>
+                    <section class="story-2" data-state="story-6">
+                        <div style="padding:0 0 50px 0;"><img src="gifs/boss.gif" style="min-width:500px;"/></div>
+                        <h3>You ask your boss to hire a sys admin.</h3>
+                        <h2 class="fragment" style="">"We don't have the budget!"</h2>
+                    </section>
+                    <section class="story-2" data-state="story-6">
+                        <div style="padding:0 0 50px 0;"><img src="gifs/who-is-devop.gif"/></div>
+                        <h3>So your team decides to ask:</h3>
+                        <h4 class="serif">who can run operations?</h4>
+                    </section>
+
+                    <section class="story-2" data-state="story-6">
+                        <div style="padding:0 0 50px 0; font-size: 80px;">
+                            <div>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                            </div>
+                        </div>
+                        <h3>... and you start deploying more servers ...</h3>
+                    </section>
+                    <section class="story-2" data-state="story-6">
+                        <div style="padding:0 0 50px 0; font-size: 80px;">
+                            <div>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i><br/>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                            </div>
+                        </div>
+                        <h3>... and some more ...</h3>
+                    </section>
+                    <section class="story-2" data-state="story-6">
+                        <div style="padding:0 0 50px 0; font-size: 80px;">
+                            <div>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i><br/>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i><br/>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i><br/>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i><br/>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i><br/>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                            </div>
+                        </div>
+                        <h3>... and maybe just a few more ...</h3>
+                    </section>
+                    <section>
+                        <h2>Until it is a giant mess!</h2>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 50px 0;"><img src="gifs/angry-panda.gif" style="min-width:500px;"/></div>
+                        <h3>Scenario: John gets Fired</h3>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 50px 0; font-size: 80px;">
+                            <div>
+                                <i class="font-awesome icon-cloud" style="font-size:50px; color:#f08080;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px; color:#f08080;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px; color:#f08080;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i><br/>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px; color:#f08080;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px; color:#f08080;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px; color:#f08080;"></i>
+                            </div>
+                        </div>
+                        <h2>You have a dozen servers</h2><h3>He has SSH keys on half of them.</h3>
+                    </section>
+                    <section>
+                        <div style="padding:0 0 50px 0; font-size: 80px;">
+                            <div>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i><br/>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                                <i class="font-awesome icon-cloud" style="font-size:50px;"></i>
+                            </div>
+                        </div>
+                        <h3>How are you going to ensure you've </h3><h3> revoked his access everywhere?</h3>
+                    </section>
+                </section>
+
+                <section data-state="">
+                    <section>
+                        <h1>The Problem:</h1>
+                        <h2>Ad-Hoc Server Management</h2>
+                    </section>
+                    <section>
+                        <h2><i class="font-awesome icon-cloud"></i> The Cloud</h2>
+                        <p class="serif">Problem: It's Easy!</p>
+                        <ul>
+                            <li class="fragment">Doesn't Require a Sys Admin</li>
+                            <li class="fragment">Simple to deploy many servers</li>
+                            <li class="fragment">But complex to solve large scaling issues</li>
+                            <li class="fragment">Long-term management requires<br /> fore-thought & planning</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2><i class="font-awesome icon-user"></i> The Developer</h2>
+                        <p class="serif">Problem: Lack of Ops Experience</p>
+                        <ul>
+                            <li class="fragment">Can relatively easily setup a production environment</li>
+                            <li class="fragment">Typically doesn't know how to manage many servers long-term</li>
+                            <li class="fragment">Busy programming, last priority is "sysadmin stuff"</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2><i class="font-awesome icon-briefcase"></i> The Business</h2>
+                        <p class="serif">Problem: Lack of Money</p>
+                        <ul>
+                            <li class="fragment">Hard to justify a "Sys Admin"<br />when devs can do "okay" job.</li>
+                            <li class="fragment">Usually hit scaling problems<br /> before profitability</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>The Solution:</h1>
+                        <h2>Developers need to think like Ops</h2>
+                    </section>
+                    <section>
+                        <h2>DevOps</h2>
+                        <blockquote>We've been putting more dev into ops, but we need to put more ops into dev. Ops is a state of mind.
+                            <cite>Theo Schlossnagle <br/> CEO, OmniTI</cite>
+                        </blockquote>
+
+                    </section>
+                    <section>
+                        <h2>Need to Apply Best Practices</h2>
+                        <h2>For Server Environments</h2>
+                        <ul>
+                            <li>Source Control for Configuration</li>
+                            <li>Ensure Servers are Configured The Same</li>
+                            <li>Automate Upgrades, Changes, & new Deployments</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Introducing</h2><h2>Configuration Management</h2>
+                        <h4 class="serif">Programmatic Approach<br/> for Configuring Servers</h4>
+                    </section>
+                    <section>
+                        <h2>What Can Configuration <br/>Management Do?</h2>
+                        <ul>
+                            <li>Manage Packages</li>
+                            <li>Manage Services</li>
+                            <li>Manage Configuration</li>
+                            <li>Manage Files</li>
+                            <li>Manage Users</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Popular Tools</h2>
+                        <ul>
+                            <li>Puppet</li>
+                            <li>Chef</li>
+                            <li>CFEngine</li>
+                        </ul>
+                    </section>
+                </section>
+
+
+
+
+
+                <!-- About -->
+                <section>
+                    <section>
+                        <h1>So what is salt?</h1>
+                        <h4 class="serif">and how is it going</h4><h4 class="serif"> to help with my problems?</h4>
+                    </section>
+                    <section>
+                        <h2>What Is Salt</h2>
+                        <blockquote style="font-size: 24px;">SaltStack takes a new approach to infrastructure management by developing software that is easy enough to get running in minutes, scalable enough to manage tens of thousands of servers, and fast enough to communicate with them in seconds. SaltStack delivers a dynamic infrastructure communication bus used for orchestration, remote execution, configuration management and much more.
+                            <cite>About SaltStack, SaltStack.org</cite>
+                        </blockquote>
+                    </section>
+                    <section>
+                        <h2>A Different Approach</h2>
+                        <p>Salt is a simple system that focuses on two things:</p>
+                        <ul>
+                            <li>Scalable, Fast Communication (Flow)</li>
+                            <li>Quickly get information / data from a server (State)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Salt Basics</h2>
+                        <ul>
+                            <li>Minions connect to Master via ZeroMQ</li>
+                            <li>Minions authenticate with master via AES (pub/priv) keys</li>
+                            <li>Master can send module commands to minions to execute</li>
+                            <li>Execution is in parallel</li>
+                            <li>Modules are just python modules</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>What does this give us?</h2>
+                        <ul>
+                            <li>Extremely Scalable (~10k Minions per Server)</li>
+                            <li>Great Flexibility (just write a python module for new functionality)</li>
+                            <li>Simple, Avoids Complexity</li>
+                            <li>Great Building Blocks for Automation</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Built On Top of Salt</h2>
+                        <ul>
+                            <li>Configuration Management</li>
+                            <li>Remote Execution</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>New / Upcoming Functionality</h2>
+                        <ul>
+                            <li>VM / Cloud Management</li>
+                            <li>Monitoring</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>100% Open Source</h2>
+                        <ul>
+                            <li><em>Everything</em> is open source! Apache License</li>
+                            <li>No "watered-down" community edition</li>
+                            <li>8th Most Unique Contributors on GitHub in 2012</li>
+                            <li>Extremely Open & Friendly Community</li>
+                        </ul>
+                    </section>
+
+                    <section data-state="salt-clients" id="salt-clients">
+                        <h2>Who Uses Salt</h2>
+                        <p>
+                            <span><img src="img/who/ssClientsRackspace2.png"/></span>
+                            <span><img src="img/who/ssClientsFusionIO.png"/></span>
+                            <span><img src="img/who/ssClientsHPCloud2.png"/></span>
+                            <span><img src="img/who/ssClientsHulu.png"/></span>
+                            <span><img src="img/who/ssClientsLinkedIn2.png"/></span>
+                            <span><img src="img/who/ssClientsPaypal.png"/></span>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Installing Salt</h1>
+                        <h3>Its so easy even I can do it</h3>
+                    </section>
+                    <section>
+                        <h2>Basic Salt Setup</h2>
+                        <div style="padding:0 0 50px 0;"><img class="diagram" src="img/diagram-basic.png"/></div>
+                    </section>
+                    <section>
+                        <h2>Setting Up The Master</h2>
+                        <ul>
+                            <li>Install salt-master via Salt Bootstrap, Pip, Apt, Yum, Source, etc</li>
+                            <li>Edit Configuration (i.e. /etc/salt/master)
+                                <ul>
+                                <li>File Roots
+                                <code><pre>
+file_roots:
+  base:
+    - /srv/salt
+                                </pre></code>
+                                </li>
+                                <li>Pillar Roots
+                                        <code><pre>
+pillar_roots:
+  base:
+    - /srv/pillar
+                                </pre></code>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>Restart salt-master (i.e. /etc/init.d/salt-master restart)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Setting Up The Minions</h2>
+                        <ul>
+                            <li>Install salt-minion via Salt Bootstrap, Pip, Apt, Yum, Source, etc</li>
+                            <li>Set FQDN on the server (OR set ID Manually in Config)</li>
+                            <li>Edit Configuration (i.e. /etc/salt/minion)
+                                <ul>
+                                    <li>Set Master Server
+                                        <code><pre>
+master: master.saltdemo.com
+                                </pre></code>
+                                    </li>
+                                    <li>Pillar Roots
+                                        <code><pre>
+pillar_roots:
+  base:
+    - /srv/pillar
+                                </pre></code>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>Restart Minion</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>View Minion Keys</h2>
+                        <p>On the salt master, list the current keys</p>
+                        <code><pre>
+user@salt-master:~$ sudo salt-key -L
+<span style="color:#90ee90;">Accepted Keys:</span>
+<span style="color:#f08080;">Unaccepted Keys:
+web1.salt-demo.com</span>
+<span style="color:#4169e1;">Rejected Keys:</span>
+                        </pre></code>
+                    </section>
+
+                    <section>
+                        <h2>Accept Minion Keys</h2>
+                        <p>Accept the key (view it before hand to make sure it's legit)</p>
+                        <code><pre>
+user@salt-master:~$ sudo salt-key -a web1.salt-demo.com
+<span style="color:#90ee90;">Accepted Keys:
+web1.salt-demo.com</span>
+<span style="color:#f08080;">Unaccepted Keys:</span>
+<span style="color:#4169e1;">Rejected Keys:</span>
+                        </pre></code>
+                    </section>
+                    <section>
+                        <h2>That's it! We're ready to rock & roll.</h2>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Remote Execution</h1>
+                        <h3>"Do my biding, minions!"</h3>
+                    </section>
+                    <section>
+                        <h2>Targeting Minions</h2>
+                        <p>Use "salt" command on master to communicate to minions</p>
+                        <p>Example: Test Ping to All Minions</p>
+                        <code><pre>
+user@salt-master:~$ sudo salt '*' test.ping
+web1.saltdemo.com:
+    True</pre></code>
+                    </section>
+                    <section>
+                        <h2>Targeting types of minions</h2>
+<code><pre>
+salt 'db*' test.ping
+salt -L web1.saltdemo.com,db2.saltdemo.com test.ping
+salt -G 'os:Ubuntu' test.ping
+salt -C 'G@os:Debian and web*' test.ping
+</pre></code>
+                    </section>
+                    <section>
+                        <h2>Execute Command on Servers</h2>
+                        <p>Example: Restart Apache</p>
+                        <code><pre>
+user@master:~$ sudo salt 'web*' cmd.run "/etc/init.d/apache2 restart"
+                        </pre></code>
+                    </section>
+                    <section>
+                        <h2>Execute Modules on Servers</h2>
+                        <p>Example: Restart Apache</p>
+                        <code><pre>
+user@salt-master:~$ sudo salt 'web*' apache.signal restart
+                        </pre></code>
+                    </section>
+                    <section>
+                        <h2>Lots of Modules</h2>
+                        <p>Here are just some of them:</p>
+                        <p>apache, apt, cron, disk, file, mount, mysql, network, puppet, service, solr, state, test, useradd, win_disk, win_service, win_useradd</p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Configuration Management</h1>
+                        <h3>Keeping your servers configured the same</h3>
+                    </section>
+                    <section>
+                        <h2>Overview</h2>
+                        <ul>
+                            <li>Define a State Tree</li>
+                            <li>Assign Parts of State Tree to Servers</li>
+                            <li>Minion will download it's state definition from the tree</li>
+                            <li>Minion will compare its current state vs state tree</li>
+                            <li>Minion will make changes to match state tree & report back</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>What is State?</h2>
+                        <p>Example using English:</p>
+                        <ul>
+                            <li>State Tree: Apache is installed & running</li>
+                            <li>Server Minion: Apache is not installed nor running</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Top.sls File</h2>
+                        <p>Defines which servers have which parts of the state tree applied to them.</p>
+                        <p>Example top.sls file:</p>
+                        <code><pre>
+base:
+    '*':
+        - core.tools
+        - core.users
+    'web1.saltdemo.com':
+        - apache2
+        - php5
+                        </pre></code>
+                    </section>
+                    <section>
+                        <h2>Different Environments</h2>
+                        <code><pre>
+base:
+    '*':
+        # Stuff for all servers
+dev:
+    '*':
+        # stuff for dev stage
+stage:
+    '*':
+        # stuff for stable stage
+prod:
+    '*':
+        # stuff for prod stage
+                        </pre></code>
+                    </section>
+                    <section>
+                        <h2>Tree Maps to Files</h2>
+                        <p>Base is your file_roots</p>
+                        <ul>
+                            <li>apache2 => apache2/init.sls</li>
+                            <li>core => core/init.sls</li>
+                            <li>core.tools => core/tools.sls</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Anatomy of a State Declaration</h2>
+                        <p>Example of a user definition</p>
+                        <code><pre>
+justin:                         ## ID
+    user:                       ## Type
+        - present               ## Function
+        - shell: /bin/bash
+        - home: /home/justin
+        - password: $1$MG4PbsH9$.w68M3yd/kUmESwq3cRM91</pre></code>
+                    </section>
+                    <section>
+                        <h2>Lets Install & Manage Apache2</h2>
+                        <code><pre>
+apache2:
+    pkg:
+        - installed
+    service:
+        - running
+
+/etc/apache2/apache2.conf:
+    file:
+        - managed
+        - source: salt://files/etc/apache2/apache2.conf
+        - watch_in:
+            - service: apache2</pre></code>
+                    </section>
+                    <section>
+                        <h2>Jinja Templates</h2>
+<code><pre>
+apache:
+  pkg.installed:
+    {% if grains['os'] == 'RedHat' %}
+    - name: httpd
+    {% elif grains['os'] == 'Ubuntu' %}
+    - name: apache2
+    {% endif %}</pre></code>
+                    </section>
+                    <section>
+                        <h2>Applying the High State</h2>
+                        <p>You just call the state.highstate function</p>
+<code><pre>
+salt '*' state.highstate
+</pre></code>
+                    </section>
+                </section>
+                <section class="iceberg" data-state="iceberg">
+
+                </section>
+                <section>
+                    <section>
+                        <h1>Random Tips for Using Salt</h1>
+                        <h3>Common pitfalls while getting started with Salt</h3>
+                    </section>
+                    <section>
+                        <h2>Debugging Salt</h2>
+                        <p>Run things in the foreground:</p>
+                        <code><pre>
+# Run master in foreground
+/etc/init.d/salt-master stop
+salt-master -L
+
+# Run minion in foreground
+/etc/init.d/salt-minion stop
+salt-minion -L
+                        </pre></code>
+                    </section>
+                    <section>
+                        <h2>Debugging Salt</h2>
+                        <p>Run things manualy from the minion</p>
+                        <code><pre>
+salt-call -l debug state.highstate
+                        </pre></code>
+                    </section>
+                    <section>
+                        <h2>Other Tidbits</h2>
+                        <ul>
+                            <li>yaml chokes on tabs, make sure you use spaces</li>
+                            <li>I use sublime text configured to always use spaces</li>
+                            <li>Use 127.0.1.1 in hosts file to set FQDN</li>
+                            <li>Test what is the FQDN with:</li>
+                        </ul>
+                        <p><code>python -c 'import socket;print(socket.getfqdn());'</code></p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>You've been introduced to Salt</h3>
+                        <h1>Now What?</h1>
+                    </section>
+                    <section>
+                        <h2>Checkout My Salt AWS Demo</h2>
+                        <p><a href="https://github.com/JustinCarmonyDotCom/salt-demo">https://github.com/JustinCarmonyDotCom/salt-demo</a></p>
+                        <p>Uses Vagrant & AWS to setup a test 5 server environment.</p>
+                    </section>
+                    <section>
+                        <h2>Checkout Salt's Documentation & Tutorials</h2>
+                        <p>Salt has some <a href="http://docs.saltstack.com/">very good docs</a> (and getting better all the time). </p>
+                    </section>
+                    <section>
+                        <h2>Join the Super Friendly IRC Channel</h2>
+                        <p>irc.freenode.net #salt</p>
+                    </section>
+                    <section>
+                        <h2 style="font-size:180px;">TRY IT OUT!</h2>
+                        <p>Blog/tweet/discuss your experience</p>
+                    </section>
+                    <section>
+                        <h2>It's Open Source, Get Involved</h2>
+                        <p>Very Pull Request friendly</p>
+                        <p>(They even have accepted PR's from me!)</p>
+                    </section>
+                </section>
+			</div>
+
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: 'salt', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
